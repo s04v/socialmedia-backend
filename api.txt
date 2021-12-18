@@ -1,0 +1,10 @@
+/account/signin POST
+/account/signup POST
+/account/logout POST
+/user/{id} GET
+/user/{id}/friends GET
+/me GET
+/me/upload POST
+/me/friends GET
+/frined/add POST
+/frined/delete POST
