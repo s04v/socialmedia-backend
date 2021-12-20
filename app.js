@@ -1,10 +1,19 @@
 const express = require('express');
+const db = require('./db/db');
+
 const app = express();
 const port = 3000;
 
 const idle = (req, res) => {
     res.send("Idle");
 }
+
+db.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    });
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello world');
