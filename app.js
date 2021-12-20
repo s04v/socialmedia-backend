@@ -1,5 +1,9 @@
 const express = require('express');
 const db = require('./db/db');
+const userModel = require('./models/user.model');
+const relationshipModel = require('./models/relationship.model');
+const postModel = require('./models/post.model');
+const messageModel = require('./models/message.model');
 
 const app = express();
 const port = 3000;

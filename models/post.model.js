@@ -1,11 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const  sequelize  = require('../db/db');
 
 const postModel = sequelize.define("post", {
-    wall_id: {type: Sequelize.INTEGER },
-    date: {type: Sequelize.DATE },
-    content: {type: Sequelize.TEXT },
-    owner_id: {type: Sequelize.INTEGER },
+    wall_id: {type: DataTypes.INTEGER },
+    date: {type: DataTypes.DATE },
+    content: {type: DataTypes.TEXT },
+    owner_id: {type: DataTypes.INTEGER },
 });
 
 module.exports = postModel;
