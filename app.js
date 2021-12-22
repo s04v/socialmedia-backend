@@ -1,15 +1,16 @@
-const express = require('express');
-const db = require('./db/db');
-const userModel = require('./models/user.model');
-const relationshipModel = require('./models/relationship.model');
-const postModel = require('./models/post.model');
-const messageModel = require('./models/message.model');
+require('dotenv').config();
 
+const express = require('express');
 const app = express();
-const port = 3000;
+
+const db = require('./db/db');
+const SingUpCtrl = require('./controllers/signUp');
+const { cryptPassword, comparePasswordHash} = require('./utils/cryptPassword');
+
 
 const idle = (req, res) => {
     res.send("Idle");
+
 }
 
 db.authenticate()
@@ -23,8 +24,8 @@ app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.post('/account/sigin', idle);
-app.post('/account/sigup', idle);
+app.post('/account/signin', idle);
+app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
 app.get('/user/:id', idle);
 app.get('/user/:id/friends', idle);
@@ -34,6 +35,6 @@ app.get('/me/friends', idle);
 app.post('/friends/add', idle);
 app.post('/friends/delete', idle);
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server started on port 3000");
 });

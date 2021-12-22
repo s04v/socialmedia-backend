@@ -5,7 +5,13 @@ const sequelize = new Sequelize(
     '',
     {
         dialect: 'mysql',
-        host: 'localhost'
+        host: 'localhost',
+        define: {
+            freezeTableName: true,
+            timestamps: false,
+            createdAt: false,
+            updatedAt: false,
+        }
     }
 );
 
