@@ -1,16 +1,22 @@
 require('dotenv').config();
 
+const { cryptPassword, comparePasswordHash} = require('./utils/cryptPassword');
+const jwt = require('jsonwebtoken');
+
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 
 const db = require('./db/db');
+
 const SingUpCtrl = require('./controllers/signUp');
-const { cryptPassword, comparePasswordHash} = require('./utils/cryptPassword');
+const SingInCtrl = require('./controllers/signIn');
+const AuthVerify = require('./middleware/authVerify');
+
 
 
 const idle = (req, res) => {
     res.send("Idle");
-
 }
 
 db.authenticate()
@@ -18,13 +24,14 @@ db.authenticate()
         console.log('Connection has been established successfully.');
     });
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.post('/account/signin', idle);
+app.post('/account/signin', AuthVerify, SingInCtrl);
 app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
 app.get('/user/:id', idle);

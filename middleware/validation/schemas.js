@@ -22,6 +22,19 @@ const SignUpSchema = Joi.object({
         .required()
 });
 
+const SignInSchema = Joi.object({
+    login: Joi.string()
+        .alphanum()
+        .min(4)
+        .max(50)
+        .required(),
+    password: Joi.string()
+        .min(5)
+        .max(16)
+        .required()
+});
+
 module.exports = {
     SignUpSchema,
+    SignInSchema,
 };

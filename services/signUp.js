@@ -2,7 +2,6 @@ const { cryptPassword } = require('../utils/cryptPassword');
 const userModel = require('../models/user.model');
 
 const signUp = async (firstName, lastName, login, password) => {
-    //TODO:
     const userCount = await userModel.count({where:{login:login}})
         .catch( e => console.log(e));
     if(userCount > 0)
