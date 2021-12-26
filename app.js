@@ -1,18 +1,18 @@
 require('dotenv').config();
 
-const { cryptPassword, comparePasswordHash} = require('./utils/cryptPassword');
-const jwt = require('jsonwebtoken');
 
+const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 
 const db = require('./db/db');
 
-const SingUpCtrl = require('./controllers/signUp');
-const SingInCtrl = require('./controllers/signIn');
 const AuthVerify = require('./middleware/authVerify');
 
+const SingUpCtrl = require('./controllers/signUp');
+const SingInCtrl = require('./controllers/signIn');
+const UserCtrl = require('./controllers/user');
 
 
 const idle = (req, res) => {
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/account/signin', AuthVerify, SingInCtrl);
 app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
-app.get('/user/:id', idle);
+app.get('/user/:id', UserCtrl);
 app.get('/user/:id/friends', idle);
 app.get('/me', idle);
 app.post('/me/upload', idle);

@@ -1,8 +1,9 @@
-/account/signin POST
-/account/signup POST
+/account/signin POST +
+/account/signup POST +
 /account/logout POST
-/user/{id} GET
+/user/{id} GET +
 /user/{id}/friends GET
+/wall/{uid}/post/ GET PUT
 /me GET
 /me/upload POST
 /me/friends GET

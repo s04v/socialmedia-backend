@@ -6,7 +6,6 @@ const UserModel = sequelize.define("user", {
     last_name: {type: DataTypes.STRING },
     login: {type: DataTypes.STRING },
     password: {type: DataTypes.STRING },
-
 });
 
 module.exports = UserModel;
