@@ -1,11 +1,28 @@
+const jwt = require('jsonwebtoken');
 const { UserSchema } = require('../middleware/validation/schemas');
 const UserService = require('../services/user');
 
-const User = async (req, res) => {
+const getUser = async (req, res) => {
     const id = req.params.id;
-    const user = await UserService(id);
+    const user = await UserService.getUser(id);
 
     res.json(user);
 }
+// TODO:
+const getFriends = async (req, res) => {}
 
-module.exports = User;
+const putFriend = async (req, res) => {
+    const decodedToken = jwt.decode(req.cookies.jwt, process.env.SECRET_TOKEN);
+    const from = decodedToken.id;
+    const to = req.params.id;
+
+    const friends = await UserService.putFriend(from, to);
+
+    res.json(friends);
+}
+
+module.exports = {
+    getUser,
+    getFriends,
+    putFriend
+};

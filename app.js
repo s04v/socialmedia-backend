@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const express = require('express');
@@ -13,7 +12,6 @@ const AuthVerify = require('./middleware/authVerify');
 const SingUpCtrl = require('./controllers/signUp');
 const SingInCtrl = require('./controllers/signIn');
 const UserCtrl = require('./controllers/user');
-
 
 const idle = (req, res) => {
     res.send("Idle");
@@ -31,11 +29,12 @@ app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.post('/account/signin', AuthVerify, SingInCtrl);
+app.post('/account/signin', SingInCtrl);
 app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
-app.get('/user/:id', UserCtrl);
-app.get('/user/:id/friends', idle);
+app.get('/user/:id', UserCtrl.getUser);
+app.get('/user/:id/friends', UserCtrl.getFriends);
+app.put('/user/:id/friends', AuthVerify, UserCtrl.putFriend);
 app.get('/me', idle);
 app.post('/me/upload', idle);
 app.get('/me/friends', idle);
