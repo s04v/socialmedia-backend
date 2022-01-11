@@ -8,8 +8,14 @@ const getUser = async (req, res) => {
 
     res.json(user);
 }
-// TODO:
-const getFriends = async (req, res) => {}
+
+
+const getFriends = async (req, res) => {
+    const id = req.params.id;
+    const friends = await UserService.getFriends(id);
+
+    res.json(friends);
+}
 
 const putFriend = async (req, res) => {
     const decodedToken = jwt.decode(req.cookies.jwt, process.env.SECRET_TOKEN);

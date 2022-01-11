@@ -12,6 +12,8 @@ const AuthVerify = require('./middleware/authVerify');
 const SingUpCtrl = require('./controllers/signUp');
 const SingInCtrl = require('./controllers/signIn');
 const UserCtrl = require('./controllers/user');
+const WallCtrl = require('./controllers/wall');
+
 
 const idle = (req, res) => {
     res.send("Idle");
@@ -32,14 +34,18 @@ app.get('/', (req, res) => {
 app.post('/account/signin', SingInCtrl);
 app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
-app.get('/user/:id', UserCtrl.getUser);
-app.get('/user/:id/friends', UserCtrl.getFriends);
+app.get('/user/:id', AuthVerify, UserCtrl.getUser);
+app.get('/user/:id/friends', AuthVerify, UserCtrl.getFriends);
 app.put('/user/:id/friends', AuthVerify, UserCtrl.putFriend);
 app.get('/me', idle);
 app.post('/me/upload', idle);
 app.get('/me/friends', idle);
 app.post('/friends/add', idle);
 app.post('/friends/delete', idle);
+app.get('/wall/:id', WallCtrl.allPosts);
+app.put('/wall/:id', WallCtrl.addPost);
+app.delete('/wall/:id', idle);
+
 
 app.listen(process.env.PORT, () => {
     console.log("Server started on port 3000");
