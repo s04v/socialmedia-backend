@@ -5,5 +5,5 @@
 /user/{id}/friend GET + PUT +
 /me GET +
 /me/upload POST
-/me/friend GET
+/me/friends GET +
 /wall/{uid} GET + PUT + DELETE

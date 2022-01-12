@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const MeService = require('../services/me');
+const UserService = require('../services/user');
 
 const Me = async (req, res) => {
     const token = jwt.decode(req.cookies.jwt, process.env.SECRET_TOKEN);
@@ -9,4 +10,15 @@ const Me = async (req, res) => {
     res.json(me);
 }
 
-module.exports = Me;
+const getFriends = async (req, res) => {
+    const token = jwt.decode(req.cookies.jwt, process.env.SECRET_TOKEN);
+    const id = token.id;
+    const friends = await UserService.getFriends(id);
+
+    res.json(friends);
+}
+
+module.exports = {
+    Me,
+    getFriends
+};

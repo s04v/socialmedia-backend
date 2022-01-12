@@ -13,7 +13,9 @@ const getUser = async (id) => {
 
 const getFriends = async (id) => {
     const friends = await relationModel.findAll({where:{
-        [Op.or]: [{user_1: id}, {user_2: id}]
+            [Op.and]: [
+                {[Op.or]: [{user_1: id}, {user_2: id}]},
+                {status: 'friends'}]
     }}).catch( e => console.log(e));
 
     return friends;
@@ -32,8 +34,8 @@ const putFriend = async (from, to) => {
 
 const friendsCount = async (id) => {
     const friends = await relationModel.count({where:{
-            [Op.and]: [{
-                [Op.or]: [{user_1: id}, {user_2: id}]},
+            [Op.and]: [
+                {[Op.or]: [{user_1: id}, {user_2: id}]},
                 {status: 'friends'}]
         }}).catch( e => console.log(e));
 

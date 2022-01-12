@@ -37,13 +37,11 @@ app.post('/account/logout', idle);
 app.get('/user/:id', AuthVerify, UserCtrl.getUser);
 app.get('/user/:id/friends', AuthVerify, UserCtrl.getFriends);
 app.put('/user/:id/friends', AuthVerify, UserCtrl.putFriend);
-app.get('/me', MeCtrl);
+app.get('/me', AuthVerify, MeCtrl.Me);
 app.post('/me/upload', idle);
-app.get('/me/friends', idle);
-app.post('/friends/add', idle);
-app.post('/friends/delete', idle);
-app.get('/wall/:id', WallCtrl.allPosts);
-app.put('/wall/:id', WallCtrl.addPost);
+app.get('/me/friends', MeCtrl.getFriends);
+app.get('/wall/:id', AuthVerify, WallCtrl.allPosts);
+app.put('/wall/:id', AuthVerify, WallCtrl.addPost);
 app.delete('/wall/:id', idle);
 
 
