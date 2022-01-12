@@ -12,12 +12,11 @@ const getUser = async (id) => {
 }
 
 const getFriends = async (id) => {
-    const firends = await relationModel.findAll({where:{
+    const friends = await relationModel.findAll({where:{
         [Op.or]: [{user_1: id}, {user_2: id}]
     }}).catch( e => console.log(e));
 
-    console.log(firends);
-    return firends;
+    return friends;
 }
 
 const putFriend = async (from, to) => {
@@ -31,8 +30,31 @@ const putFriend = async (from, to) => {
     return friends;
 }
 
+const friendsCount = async (id) => {
+    const friends = await relationModel.count({where:{
+            [Op.and]: [{
+                [Op.or]: [{user_1: id}, {user_2: id}]},
+                {status: 'friends'}]
+        }}).catch( e => console.log(e));
+
+
+    return friends;
+}
+
+const followersCount = async (id) => {
+    const followers = await relationModel.count({where:{
+            [Op.and]: [
+                {user_2: id},
+                {status: 'followers'}]
+        }}).catch( e => console.log(e));
+
+    return followers;
+}
+
 module.exports = {
     getUser,
     getFriends,
-    putFriend
+    putFriend,
+    friendsCount,
+    followersCount
 };

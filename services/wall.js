@@ -18,7 +18,7 @@ const allPosts = async (wallId) => {
     const posts = await postModel.findAll({where:{
              wall_id: wallId
         }}).catch( e => console.log(e));
-    console.log(posts);
+
     return posts;
 }
 

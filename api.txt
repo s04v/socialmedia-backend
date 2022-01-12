@@ -2,10 +2,8 @@
 /account/signup POST +
 /account/logout POST
 /user/{id} GET +
-/user/{id}/friend GET - PUT +
-/wall/{uid} GET PUT
-/me GET
+/user/{id}/friend GET + PUT +
+/me GET +
 /me/upload POST
 /me/friend GET
-/frined/add POST
-/frined/delete POST
+/wall/{uid} GET + PUT + DELETE

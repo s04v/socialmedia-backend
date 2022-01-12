@@ -13,7 +13,7 @@ const SingUpCtrl = require('./controllers/signUp');
 const SingInCtrl = require('./controllers/signIn');
 const UserCtrl = require('./controllers/user');
 const WallCtrl = require('./controllers/wall');
-
+const MeCtrl = require('./controllers/me');
 
 const idle = (req, res) => {
     res.send("Idle");
@@ -37,7 +37,7 @@ app.post('/account/logout', idle);
 app.get('/user/:id', AuthVerify, UserCtrl.getUser);
 app.get('/user/:id/friends', AuthVerify, UserCtrl.getFriends);
 app.put('/user/:id/friends', AuthVerify, UserCtrl.putFriend);
-app.get('/me', idle);
+app.get('/me', MeCtrl);
 app.post('/me/upload', idle);
 app.get('/me/friends', idle);
 app.post('/friends/add', idle);
