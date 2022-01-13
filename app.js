@@ -3,6 +3,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const cors = require('cors')
 const app = express();
 
 const db = require('./db/db');
@@ -26,6 +27,7 @@ db.authenticate()
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello world');
@@ -46,5 +48,17 @@ app.delete('/wall/:id', idle);
 
 
 app.listen(process.env.PORT, () => {
-    console.log("Server started on port 3000");
+    console.log("Server started on port 3001");
 });
+
+/*const server = require('http').Server(app);
+const io = require("socket.io")(server);
+
+io.on('connection', (socket) => {
+    console.log("socket connected");
+});
+*/
+
+/*server.listen(3001,() => {
+    console.log("Server started on port 3001");
+});*/

@@ -7,3 +7,17 @@
 /me/upload POST
 /me/friends GET +
 /wall/{uid} GET + PUT + DELETE
+
+respond format:
+
+{
+    status: "success",
+    data: {...}
+    message: null
+}
+
+{
+    status: "error",
+    data: null
+    message: "user exists"
+}
