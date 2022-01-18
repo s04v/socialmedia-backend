@@ -2,14 +2,6 @@ const userModel = require('../models/user.model');
 const relationModel = require('../models/relationship.model');
 const Op = require('sequelize').Op
 
-const getUser = async (id) => {
-    const user = await userModel.findOne({where:{ id:id }})
-        .catch( e => console.log(e));
-    if( user === null)
-        return "user not found";
-
-    return user.dataValues;
-}
 
 const getFriends = async (id) => {
     const friends = await relationModel.findAll({where:{
@@ -53,6 +45,21 @@ const followersCount = async (id) => {
     return followers;
 }
 
+const getUser = async (id) => {
+    const user = await userModel.findOne({where:{ id:id }})
+        .catch( e => console.log(e));
+    if( user === null)
+        return "user not found";
+
+    const friends = await friendsCount(id);
+    const followers = await followersCount(id);
+
+    return {
+        "user": user.dataValues,
+        "friendsCount": friends,
+        "followersCount": followers
+    };
+}
 module.exports = {
     getUser,
     getFriends,

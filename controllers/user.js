@@ -9,7 +9,6 @@ const getUser = async (req, res) => {
     res.json(user);
 }
 
-
 const getFriends = async (req, res) => {
     const id = req.params.id;
     const friends = await UserService.getFriends(id);

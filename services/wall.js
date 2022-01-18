@@ -1,5 +1,8 @@
 const postModel = require('../models/post.model');
+const userModel = require('../models/user.model');
 const {cryptPassword} = require("../utils/cryptPassword");
+
+const sequelize = require('sequelize');
 
 // TODO: date
 const addPost = async (wallId, content, ownerId) => {
@@ -17,7 +20,11 @@ const addPost = async (wallId, content, ownerId) => {
 const allPosts = async (wallId) => {
     const posts = await postModel.findAll({where:{
              wall_id: wallId
-        }}).catch( e => console.log(e));
+        },
+          include:{
+                model: userModel,
+                attributes:['first_name', 'last_name', 'avatar']
+            }}).catch( e => console.log(e));
 
     return posts;
 }
