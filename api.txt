@@ -3,6 +3,7 @@
 /account/logout POST
 /user/{id} GET +
 /user/{id}/friend GET + PUT +
+/user/{id}/friend/status POST
 /me GET +
 /me/upload POST
 /me/friends GET +

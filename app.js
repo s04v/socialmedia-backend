@@ -20,6 +20,7 @@ const idle = (req, res) => {
     res.send("Idle");
 }
 
+
 db.authenticate()
     .then(() => {
         console.log('Connection has been established successfully.');
@@ -27,12 +28,13 @@ db.authenticate()
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
+// TODO: fix AuthVerify
 app.post('/account/signin', SingInCtrl);
 app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
@@ -43,7 +45,7 @@ app.get('/me', AuthVerify, MeCtrl.Me);
 app.post('/me/upload', idle);
 app.get('/me/friends', MeCtrl.getFriends);
 app.get('/wall/:id', WallCtrl.allPosts);
-app.put('/wall/:id', AuthVerify, WallCtrl.addPost);
+app.post('/wall/:id', WallCtrl.addPost);
 app.delete('/wall/:id', idle);
 
 
