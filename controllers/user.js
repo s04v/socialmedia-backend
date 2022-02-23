@@ -26,8 +26,19 @@ const putFriend = async (req, res) => {
     res.json(friends);
 }
 
+const status = async (req, res) => {
+    const decodedToken = jwt.decode(req.cookies.jwt, process.env.SECRET_TOKEN);
+    const user1 = decodedToken.id;
+    const user2 = req.params.id;
+
+     const status = await UserService.status(user1, user2);
+
+    res.json(status);
+}
+
 module.exports = {
     getUser,
     getFriends,
-    putFriend
+    putFriend,
+    status
 };

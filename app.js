@@ -40,7 +40,7 @@ app.post('/account/signup', SingUpCtrl);
 app.post('/account/logout', idle);
 app.get('/user/:id', UserCtrl.getUser); // TODO: AuthVerify
 app.get('/user/:id/friends', AuthVerify, UserCtrl.getFriends);
-app.put('/user/:id/friends', AuthVerify, UserCtrl.putFriend);
+app.get('/user/:id/friends/status', AuthVerify, UserCtrl.status);
 app.get('/me', AuthVerify, MeCtrl.Me);
 app.post('/me/upload', idle);
 app.get('/me/friends', MeCtrl.getFriends);

@@ -60,10 +60,28 @@ const getUser = async (id) => {
         "followersCount": followers
     };
 }
+
+const status = async (user1, user2) => {
+    const data = await relationModel.findOne({where:{
+        [Op.or]: [
+                { [Op.and]: [ {user_1: user1}, {user_2: user2} ] },
+                { [Op.and]: [ {user_1: user2}, {user_2: user1} ] }
+            ]
+        }
+        }).catch( e => console.log(e));
+
+        console.log(data);
+        if(data === null)
+            return { status: "null" };
+
+        return { status: data.dataValues.status };
+}
+
 module.exports = {
     getUser,
     getFriends,
     putFriend,
     friendsCount,
-    followersCount
+    followersCount,
+    status
 };
